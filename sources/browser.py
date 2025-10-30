@@ -140,7 +140,6 @@ def create_chrome_options(headless=False, stealth_mode=True, crx_path="./crx/nop
     profile_dir = f"/tmp/chrome_profile_{uuid.uuid4().hex[:8]}"
     
     # Core options
-    chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument(f'--user-data-dir={profile_dir}')
     chrome_options.add_argument(f"--accept-lang={lang}-{lang.upper()},{lang};q=0.9")
@@ -225,6 +224,7 @@ def create_driver(headless=False, stealth_mode=True, crx_path="./crx/nopecha.crx
         print("[WARNING] Consider setting headless=True or headless_browser=True in config.ini")
     
     chrome_options = create_chrome_options(headless, stealth_mode, crx_path, lang)
+    chrome_options.add_argument("--no-sandbox")
     chromedriver_path = install_chromedriver()
     service = Service(chromedriver_path)
     
